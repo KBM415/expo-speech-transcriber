@@ -1,48 +1,74 @@
 import ExpoModulesCore
+import Speech
+import AVFoundation
 
 public class ExpoSpeechTranscriberModule: Module {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
+
+  private func requestTranscribePermissions() async -> String {
+      return await withCheckedContinuation { continuation in
+          SFSpeechRecognizer.requestAuthorization { authStatus in
+              if authStatus == .authorized {
+                  continuation.resume(returning: "Permission granted!")
+              } else {
+                  continuation.resume(returning: "Transcription permission was declined.")
+              }
+          }
+      }
+  }
+
+  private func transcribeAudio(url: URL) async -> String {
+      return await withCheckedContinuation { continuation in
+          // create a new recognizer and point it at our audio
+          let recognizer = SFSpeechRecognizer()
+          let request = SFSpeechURLRecognitionRequest(url: url)
+
+          // start recognition!
+          recognizer?.recognitionTask(with: request) { (result, error) in
+              // abort if we didn't get any transcription back
+              if let error = error {
+                  continuation.resume(returning: "Error: \(error.localizedDescription)")
+                  return
+              }
+              
+              guard let result = result else {
+                  continuation.resume(returning: "No transcription available")
+                  return
+              }
+
+              // if we got the final transcription back, return it
+              if result.isFinal {
+                  continuation.resume(returning: result.bestTranscription.formattedString)
+              }
+          }
+      }
+  }
   public func definition() -> ModuleDefinition {
     // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
     // The module will be accessible from `requireNativeModule('ExpoSpeechTranscriber')` in JavaScript.
     Name("ExpoSpeechTranscriber")
 
-    // Defines constant property on the module.
-    Constant("PI") {
-      Double.pi
-    }
-
     // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+    Events("onTranscriptionProgress", "onTranscriptionError")
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      return "Hello world! 👋"
-    }
-
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { (value: String) in
-      // Send an event to JavaScript.
-      self.sendEvent("onChange", [
-        "value": value
-      ])
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of the
-    // view definition: Prop, Events.
-    View(ExpoSpeechTranscriberView.self) {
-      // Defines a setter for the `url` prop.
-      Prop("url") { (view: ExpoSpeechTranscriberView, url: URL) in
-        if view.webView.url != url {
-          view.webView.load(URLRequest(url: url))
-        }
+    // Main transcription function - takes audio file path, returns transcribed text
+    AsyncFunction("transcribeAudio") { (audioFilePath: String?) async throws -> String in
+      guard let audioFilePath = audioFilePath else {
+        throw NSError(domain: "ExpoSpeechTranscriber", code: 400, userInfo: [NSLocalizedDescriptionKey: "Audio file path is required"])
       }
+      
+      let url = URL(fileURLWithPath: audioFilePath)
+      let transcription = await self.transcribeAudio(url: url)
+      return transcription
+    }
 
-      Events("onLoad")
+    // Optional: Request speech recognition permission
+    AsyncFunction("requestPermissions") { () async -> String in
+        let hasPermission: String = await self.requestTranscribePermissions()
+        return hasPermission
     }
   }
 }
