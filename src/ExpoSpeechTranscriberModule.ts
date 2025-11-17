@@ -1,13 +1,17 @@
-import { NativeModule, requireNativeModule } from 'expo';
+import { requireNativeModule, NativeModule } from 'expo-modules-core';
+import type {
+  ExpoSpeechTranscriberModuleEvents,
+} from './ExpoSpeechTranscriber.types';
 
-import { ExpoSpeechTranscriberModuleEvents } from './ExpoSpeechTranscriber.types';
-
-declare class ExpoSpeechTranscriberModule extends NativeModule<ExpoSpeechTranscriberModuleEvents> {
+declare class ExpoSpeechTranscriberNative extends NativeModule<ExpoSpeechTranscriberModuleEvents> {
+  transcribeAudioBuffer(audioData: Float32Array, sampleRate: number, channels: number): Promise<string>;
   transcribeAudioWithSFRecognizer(audioFilePath: string): Promise<string>;
   transcribeAudioWithAnalyzer(audioFilePath: string): Promise<string>;
   requestPermissions(): Promise<string>;
   isAnalyzerAvailable(): boolean;
 }
 
-// This call loads the native module object from the JSI.
-export default requireNativeModule<ExpoSpeechTranscriberModule>('ExpoSpeechTranscriber');
+const ExpoSpeechTranscriberModule =
+  requireNativeModule<ExpoSpeechTranscriberNative>('ExpoSpeechTranscriber');
+
+export default ExpoSpeechTranscriberModule;

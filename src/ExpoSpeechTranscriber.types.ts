@@ -4,8 +4,18 @@ export type OnLoadEventPayload = {
   url: string;
 };
 
+export type TranscriptionProgressPayload = {
+  text: string;
+  isFinal: boolean;
+};
+
+export type TranscriptionErrorPayload = {
+  error: string;
+};
+
 export type ExpoSpeechTranscriberModuleEvents = {
-  onChange: (params: ChangeEventPayload) => void;
+  onTranscriptionProgress(payload: TranscriptionProgressPayload): void;
+  onTranscriptionError(payload: TranscriptionErrorPayload): void;
 };
 
 export type ChangeEventPayload = {
