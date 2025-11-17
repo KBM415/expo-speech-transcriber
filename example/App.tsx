@@ -71,9 +71,9 @@ const App = () => {
 
       // Configure audio session for recording
       AudioManager.setAudioSessionOptions({
-        iosCategory: 'playAndRecord',
+        iosCategory: 'record',
         iosMode: 'spokenAudio',
-        iosOptions: ['defaultToSpeaker', 'allowBluetoothA2DP'],
+        iosOptions: ['allowBluetoothA2DP'],
       });
 
       // Create audio context and recorder adapter

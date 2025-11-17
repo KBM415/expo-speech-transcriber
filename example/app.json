@@ -30,7 +30,8 @@
     },
     "plugins": [
       "expo-audio",
-      "../app.plugin.js"
+      "../app.plugin.js",
+      "react-native-audio-api"
     ]
   }
 }
